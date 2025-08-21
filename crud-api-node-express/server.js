@@ -11,8 +11,8 @@ app.get("/", (req, res) => {
 
 app.get('/api/product', async (req, res) => {
   try{
-    await products = await Product.find({});
-    res.status(200).json(products)
+    const prod = await Product.find({});
+    res.status(200).json(prod)
   }
   catch(error){
     res.status(500).json({message: error.message})
