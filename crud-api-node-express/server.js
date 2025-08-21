@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Product = require("./models/productmodels.js");
 const app = express();
 app.use(express.json());
 
@@ -8,9 +9,24 @@ app.get("/", (req, res) => {
   res.send("Welcome to the NodeJS Backend Technology, Which is more important");
 });
 
-app.post("/api/products", (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+app.get('/api/product', async (req, res) => {
+  try{
+    await products = await Product.find({});
+    res.status(200).json(products)
+  }
+  catch(error){
+    res.status(500).json({message: error.message})
+  }
+})
+
+app.post("/api/products", async (req, res) => {
+  try{
+    const product = await Product.create(req.body);
+    res.status(200).json(product)
+  }
+  catch(error){
+    res.status(500).json({message: error.message})
+  }
 })
 
 
